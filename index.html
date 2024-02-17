@@ -46,6 +46,16 @@
                 L.geoJSON(data).addTo(map);
             });
 
+        fetch('map.geojson')
+            .then(response => response.json())
+            .then(data => {
+                L.geoJSON(data, {
+                    onEachFeature: function (feature, layer) {
+                        layer.bindPopup(JSON.stringify(feature.properties));
+                    }       
+                }).addTo(map);
+            })
+            .catch(error => console.error('Error:', error));
 
     </script>
 
